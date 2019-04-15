@@ -1,7 +1,8 @@
 package com.gmail.morovo1988.minURL.model;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "Statistic")
@@ -12,7 +13,9 @@ public class Statistic {
     @Column(name = "Id", nullable = false)
     private Long id;
 
-    private LocalDateTime date;
+    private LocalDate date;
+
+    private LocalTime time;
 
     private String referer;
 
@@ -27,8 +30,9 @@ public class Statistic {
     public Statistic() {
     }
 
-    public Statistic(LocalDateTime date, String referer, String ip, String browser, MiniURL miniURL) {
+    public Statistic(LocalDate date, LocalTime time, String referer, String ip, String browser, MiniURL miniURL) {
         this.date = date;
+        this.time = time;
         this.referer = referer;
         this.ip = ip;
         this.browser = browser;
@@ -43,12 +47,20 @@ public class Statistic {
         this.id = id;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public String getReferer() {

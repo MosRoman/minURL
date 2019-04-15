@@ -12,11 +12,9 @@ public interface StatisticService {
 
     List<Statistic> findAllStatisticByMiniURLId(Long id);
 
-    Map<String,Long> findAllStatisticByMiniURLIdAndBrowser(MiniURL miniURL);
+    Map<String, Long> findAllStatisticByMiniURLIdAndBrowser(MiniURL miniURL);
 
-//    List<String> findAllStatisticByMiniURLIdAndBrowser2(MiniURL id);
+    Map<String, Long> findAllStatisticByMiniURLdAndReferer(MiniURL miniURL);
 
-    List<Statistic> findAllStatisticByMiniURLIdAndReferer(Long id, String referer);
-
-    List<Statistic> findAllStatisticByMiniURLIdAndDate(Long id, LocalDate localDate);
+    Map<LocalDate, Long> findAllStatisticByMiniURLIdAndDate(MiniURL miniURL);
 }

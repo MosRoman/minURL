@@ -31,6 +31,10 @@
                 <dd class="col-sm-9">
                     <p th:text="${miniURL.longAdress}"></p>
                 </dd>
+                <dt class="col-sm-3">New small Adress</dt>
+                <dd class="col-sm-9">
+                    <p th:text="${miniURL.smallAdress}"></p>
+                </dd>
 
                 <dt class="col-sm-3">Сonversion Count</dt>
                 <dd class="col-sm-9">
@@ -38,22 +42,37 @@
                 </dd>
 
                 <dt class="col-sm-3">Browser Сonversion Count</dt>
-                <dd class="col-sm-9">
+                <dd class="col-sm-9" >
 
-                    <!--<p th:text="${browsers}"></p>-->
+                    <tr th:each="browser : ${browsers}">
+                    <td th:text="${browser}"></td>
+                        <br>
+                    </tr>
 
+                    <p th:text="_" th:default="_"></p>
 
                 </dd>
 
+                <dt class="col-sm-3">Referer Сonversion Count</dt>
+                <dd class="col-sm-9" >
+
+                    <tr th:each="referer : ${referers}">
+                        <td th:text="${referer}" ></td>
+                        <br>
+                    </tr>
+                    <tr th:text="_" th:default="_"></tr>
+                </dd>
+                <dt class="col-sm-3">Date Сonversion Count</dt>
+                <dd class="col-sm-9" >
+                    <tr th:each="date : ${dates}">
+                        <td th:text="${date}"></td>
+                        <br>
+                    </tr>
+                    <p th:text="_" th:default="_"></p>
+                </dd>
 
             </dl>
         </main>
-        <!--<div>-->
-            <!--<tr th:each="browser : ${browsers}">-->
-                <!--<td th:text="${browser}"></td>-->
-            <!--</tr>-->
-        <!--</div>-->
-
 
     </div>
 

@@ -53,9 +53,11 @@
             <th>Small Adress</th>
             <th>Day Create</th>
             <th>Day Destroy</th>
+            <th>Active/Disable</th>
             <th>Active</th>
-            <th></th>
-            <th></th>
+            <th>Update</th>
+            <th>Statistic</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -65,11 +67,22 @@
             <td><a th:href="'http://localhost:8080/'+${miniURL.id}" th:text="${miniURL.getSmallAdress()}"></a></td>
             <td th:text="${miniURL.getDayCreate()}"></td>
             <td th:text="${miniURL.getDayDestroy()}"></td>
+            <td>
+
+                <form class="form-inline"
+                      th:action="@{'/' + ${miniURL.id} + '/active'}" method="post" th:align="center">
+
+                    <button type="submit" class="btn btn-primary mb-2" >Active/Disable</button>
+                </form>
+
+
+
+            </td>
             <td th:text="${miniURL.isActive()}"></td>
             <td>
 
                 <a th:href="@{'/' + ${miniURL.id} + '/update'}"
-                   class="btn btn-info" href="#">
+                   class="btn btn-info mb-2" href="#" th:text="Update">
                     <span data-feather="edit"></span>
                 </a>
 
@@ -77,7 +90,7 @@
             <td>
 
                 <a th:href="@{'/' + ${miniURL.id}+'/statistic'}"
-                   class="btn btn-warning" href="#">
+                   class="btn btn-warning" href="#" th:text="Statistic">
                     <span data-feather="edit"></span>
                 </a>
 
@@ -89,7 +102,7 @@
                     <input type="hidden"
                            name="${_csrf.parameterName}"
                            value="${_csrf.token}"/>
-                    <button class="btn btn-danger" type="submit">
+                    <button class="btn btn-danger mb-2" type="submit" th:text="Delete">
                         <span data-feather="trash"></span>
                     </button>
                 </form>

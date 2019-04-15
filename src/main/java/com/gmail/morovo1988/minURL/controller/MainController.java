@@ -9,8 +9,6 @@ import com.gmail.morovo1988.minURL.wrappers.PageWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,11 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.View;
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Map;
+import java.time.LocalTime;
 
 
 @Controller
@@ -116,8 +112,9 @@ public class MainController {
             String ip = request.getRemoteAddr();
             String referer = request.getHeader("referer");
             String clientBrowser = getClientBrowser(request);
-            LocalDateTime localDateTime = LocalDateTime.now();
-            Statistic statistic = new Statistic(localDateTime, ip, referer, clientBrowser, miniURL);
+            LocalDate localDate = LocalDate.now();
+            LocalTime localTime = LocalTime.now();
+            Statistic statistic = new Statistic(localDate, localTime, referer, ip, clientBrowser, miniURL);
 
             this.statisticService.create(statistic);
         } else {
@@ -128,18 +125,28 @@ public class MainController {
     }
 
     @GetMapping("{id}/statistic")
-    private  String showStatisticMiniURL(@PathVariable("id") final Long id,Model model){
+    private String showStatisticMiniURL(@PathVariable("id") final Long id, Model model) {
         model.addAttribute("miniURL", this.minimizationURLService.findById(id));
 
-        model.addAttribute("count",this.statisticService.findAllStatisticByMiniURLId(id).size() );
-        model.addAttribute("browsers",this.statisticService.findAllStatisticByMiniURLIdAndBrowser(this.minimizationURLService.findById(id)));
-        System.out.println(this.statisticService.findAllStatisticByMiniURLId(id).size());
+        model.addAttribute("count", this.statisticService.findAllStatisticByMiniURLId(id).size());
+        model.addAttribute("browsers", this.statisticService.findAllStatisticByMiniURLIdAndBrowser(this.minimizationURLService.findById(id)));
+        model.addAttribute("referers", this.statisticService.findAllStatisticByMiniURLdAndReferer(this.minimizationURLService.findById(id)));
+        model.addAttribute("dates", this.statisticService.findAllStatisticByMiniURLIdAndDate(this.minimizationURLService.findById(id)));
 
-        Map<String,Long> map = this.statisticService.findAllStatisticByMiniURLIdAndBrowser(this.minimizationURLService.findById(id));
-        for (Map.Entry entry : map.entrySet()) {
-            System.out.println(entry.getKey() + ", " + entry.getValue());
-        }
         return "statistic";
+    }
+
+    @PostMapping("{id}/active")
+    private String setActiveMiniURL(@PathVariable("id") final Long id, Model model) {
+        MiniURL miniURL = this.minimizationURLService.findById(id);
+        if (miniURL.isActive() == false) {
+            miniURL.setActive(true);
+        } else {
+            miniURL.setActive(false);
+        }
+        this.minimizationURLService.updateURL(miniURL);
+
+        return "redirect:/";
     }
 
     public String getClientBrowser(HttpServletRequest request) {
