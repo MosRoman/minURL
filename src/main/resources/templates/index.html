@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Mini Adress</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<!--<div id="wrapper">-->
+
+<div id="header">
+
+    <div align="center"><h1>“Минификатор URL”</h1></div>
+    </p>
+</div>
+<!--<div id="content">-->
+
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <form class="form-inline" th:object="${adress}"
+              th:action="@{/add_mini_adress}" method="post" th:align="center">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="longAdress" class="sr-only">long Adress</label>
+                <input type="text" class="form-control" id="longAdress" placeholder="long Adress"
+                       th:field="*{longAdress}">
+                <label for="dayDestroy" class="sr-only">Day destroy</label>
+                <input type="text" class="form-control" id="dayDestroy" placeholder="Day destroy"
+                       th:field="*{dayDestroy}">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Create</button>
+        </form>
+
+
+    </div><!-- /.container-fluid -->
+</nav>
+
+<!--<main role="main" class="col-md-11 ml-sm-auto col-lg-10 pt-3 px-4">-->
+
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Long Adress</th>
+            <th>Small Adress</th>
+            <th>Day Create</th>
+            <th>Day Destroy</th>
+            <th>Active</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="miniURL : ${miniURLS}">
+            <td th:text="${miniURL.id}"></td>
+            <td th:text="${miniURL.getLongAdress()}"></td>
+            <td><a th:href="'http://localhost:8080/'+${miniURL.id}" th:text="${miniURL.getSmallAdress()}"></a></td>
+            <td th:text="${miniURL.getDayCreate()}"></td>
+            <td th:text="${miniURL.getDayDestroy()}"></td>
+            <td th:text="${miniURL.isActive()}"></td>
+            <td>
+
+                <a th:href="@{'/' + ${miniURL.id} + '/update'}"
+                   class="btn btn-info" href="#">
+                    <span data-feather="edit"></span>
+                </a>
+
+            </td>
+            <td>
+
+                <a th:href="@{'/' + ${miniURL.id}+'/statistic'}"
+                   class="btn btn-warning" href="#">
+                    <span data-feather="edit"></span>
+                </a>
+
+            </td>
+            <td>
+                <form class="form-inline"
+                      th:action="@{'/' + ${miniURL.id} + '/delete'}"
+                      method="post">
+                    <input type="hidden"
+                           name="${_csrf.parameterName}"
+                           value="${_csrf.token}"/>
+                    <button class="btn btn-danger" type="submit">
+                        <span data-feather="trash"></span>
+                    </button>
+                </form>
+            </td>
+
+        </tr>
+        </tbody>
+        <tr>
+            <td></td>
+        </tr>
+    </table>
+</div>
+
+<ul class='pagination justify-content-center'>
+    <li th:class="${page.firstPage}?'page-item disabled':'page-item'">
+                    <span class="page-link"
+                          th:if='${page.firstPage}'>
+                        ← First
+                    </span>
+        <a th:if='${not page.firstPage}'
+           th:href='@{${page.url}(page=0,size=${page.size})}'
+           class="page-link">
+            First
+        </a>
+    </li>
+
+    <li th:class="${page.hasPreviousPage}? 'page-item' : 'page-item disabled'">
+                    <span class="page-link" th:if='${not page.hasPreviousPage}'>
+                        «
+                    </span>
+        <a th:if='${page.hasPreviousPage}'
+           th:href='@{${page.url}(page=${page.number-2},size=${page.size})}'
+           class="page-link">
+            Previous
+        </a>
+    </li>
+
+    <li th:each='item : ${page.items}'
+        th:class="${item.current}? 'active page-item' : 'page-item'">
+
+                    <span th:if='${item.current}' class="page-link"
+                          th:text='${item.number}'>
+                        1
+                    </span>
+
+        <a th:if='${not item.current}' class="page-link"
+           th:href='@{${page.url}(page=${item.number-1},size=${page.size})}'>
+                                <span th:text='${item.number}'>
+                                    1
+                                </span>
+        </a>
+    </li>
+    <li th:class="${page.hasNextPage}? 'page-item' : 'page-item disabled'">
+                    <span class="page-link"
+                          th:if='${not page.hasNextPage}'>
+                        »
+                    </span>
+
+        <a th:if='${page.hasNextPage}' class="page-link"
+           th:href='@{${page.url}(page=${page.number},size=${page.size})}'
+           title='Go to next page'>»</a>
+    </li>
+    <li th:class="${page.lastPage}? 'page-item disabled' : 'page-item'">
+                    <span class="page-link"
+                          th:if='${page.lastPage}'>
+                        Last →
+                    </span>
+
+        <a th:if='${not page.lastPage}' class="page-link"
+           th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size})}'>
+            Last →
+        </a>
+    </li>
+</ul>
+<!--</main>-->
+
+<!--</div>-->
+<!--</div>-->
+
+
+</body>
+</html>
+

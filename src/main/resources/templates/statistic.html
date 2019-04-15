@@ -1,0 +1,67 @@
+<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MiniAdress</title>
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div id="wrapper">
+
+    <div id="header">
+
+
+        <h1 align="center">Statistic</h1>
+    </div>
+    <div class="container">
+        <main role="main" class="col-md-11 ml-sm-auto col-lg-10 pt-3 px-4">
+            <p>
+                <a class="btn btn-outline-primary" href="/">
+                    Back
+                </a>
+            </p>
+            <h4>MiniURL statistic:</h4>
+            <dl class="row">
+                <dt class="col-sm-3">Id</dt>
+                <dd class="col-sm-9">
+                    <p th:text="${miniURL.id}"></p>
+                </dd>
+                <dt class="col-sm-3">Adress</dt>
+                <dd class="col-sm-9">
+                    <p th:text="${miniURL.longAdress}"></p>
+                </dd>
+
+                <dt class="col-sm-3">Сonversion Count</dt>
+                <dd class="col-sm-9">
+                    <p th:text="${miniURL.getStatistics().size()}"></p>
+                </dd>
+
+                <dt class="col-sm-3">Browser Сonversion Count</dt>
+                <dd class="col-sm-9">
+
+                    <!--<p th:text="${browsers}"></p>-->
+
+
+                </dd>
+
+
+            </dl>
+        </main>
+        <!--<div>-->
+            <!--<tr th:each="browser : ${browsers}">-->
+                <!--<td th:text="${browser}"></td>-->
+            <!--</tr>-->
+        <!--</div>-->
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+</html>
+
+

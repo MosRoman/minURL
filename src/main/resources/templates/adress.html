@@ -1,0 +1,82 @@
+<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MiniAdress</title>
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div id="wrapper">
+
+    <div id="header">
+
+
+        <h1 align="center">Update Address</h1>
+    </div>
+    <div class="container">
+
+        <form th:object="${adress}" class="form-horizontal"
+              th:action="@{'/'+${adress.id}+'/update'}" method="post">
+
+
+            <div class="form-group" hidden>
+                 <input class="form-control"
+                       type="text"
+                       id="id"
+                       th:field="*{id}">
+
+            </div>
+            <div class="form-group">
+                <label for="longAdress"
+                       class="col-sm-2 control-label">
+                    Adress
+                </label>
+                <input class="form-control"
+                       type="text"
+                       id="longAdress"
+                       placeholder="Long Adress"
+                       th:field="*{longAdress}">
+
+            </div>
+            <div class="form-group">
+
+                <label for="dayDestroy"
+                       class="col-sm-2 control-label">
+                    Day Destroy
+                </label>
+                <input class="form-control"
+                       type="text"
+                       id="dayDestroy"
+                       placeholder="Day Destroy"
+                       th:field="*{dayDestroy}">
+
+            </div>
+
+            <input type="hidden"
+                   name="${_csrf.parameterName}"
+                   value="${_csrf.token}"/>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-outline-primary"
+                            type="submit">
+                        Update address
+                    </button>
+                    <a class="btn btn-outline-primary" href="/">
+                        Back
+                    </a>
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+</html>
+
+
