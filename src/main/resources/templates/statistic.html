@@ -17,7 +17,7 @@
     <div class="container">
         <main role="main" class="col-md-11 ml-sm-auto col-lg-10 pt-3 px-4">
             <p>
-                <a class="btn btn-outline-primary" href="/">
+                <a class="btn btn-primary mb-2" href="/">
                     Back
                 </a>
             </p>
@@ -35,40 +35,63 @@
                 <dd class="col-sm-9">
                     <p th:text="${miniURL.smallAdress}"></p>
                 </dd>
+                <div>
+                    <dt class="col-sm-3">Сonversion Count</dt>
+                    <dd class="col-sm-9">
+                        <p th:text="${miniURL.getStatistics().size()}"></p>
+                    </dd>
+                </div>
+                <div>
+                    <dt class="col-sm-3">Browser Сonversion Count</dt>
+                    <dd class="col-sm-9">
+                        <!--<p th:text="${browsers.isEmpty()} ? '0' : '  '"></p>-->
+                        <!--<div th:if="${browsers}">-->
+                        <!--<tr th:each="browser : ${browsers}">-->
+                        <!--<td th:text="${browser}"></td>-->
+                        <!--<br>-->
+                        <!--</tr>-->
+                        <!--</div>-->
+                        <!--<div th:unless="0"></div>-->
 
-                <dt class="col-sm-3">Сonversion Count</dt>
-                <dd class="col-sm-9">
-                    <p th:text="${miniURL.getStatistics().size()}"></p>
-                </dd>
+                        <div th:switch="${browsers.isEmpty()}">
+                            <p th:case="true">0</p>
+                            <p th:case="false">
+                                <tr th:each="browser : ${browsers}">
+                                    <td th:text="${browser}"></td>
+                                    <br>
+                                </tr>
+                            </p>
+                        </div>
 
-                <dt class="col-sm-3">Browser Сonversion Count</dt>
-                <dd class="col-sm-9" >
+                    </dd>
+                </div>
 
-                    <tr th:each="browser : ${browsers}">
-                    <td th:text="${browser}"></td>
-                        <br>
-                    </tr>
-
-                    <p th:text="_" th:default="_"></p>
-
-                </dd>
 
                 <dt class="col-sm-3">Referer Сonversion Count</dt>
-                <dd class="col-sm-9" >
+                <dd class="col-sm-9">
 
-                    <tr th:each="referer : ${referers}">
-                        <td th:text="${referer}" ></td>
-                        <br>
-                    </tr>
-                    <tr th:text="_" th:default="_"></tr>
+                    <div th:switch="${referers.isEmpty()}">
+                        <p th:case="true">0</p>
+                        <p th:case="false">
+                            <tr th:each="referer : ${referers}">
+                                <td th:text="${referer}"></td>
+                                <br>
+                            </tr>
+                        </p>
+                    </div>
+
                 </dd>
                 <dt class="col-sm-3">Date Сonversion Count</dt>
-                <dd class="col-sm-9" >
-                    <tr th:each="date : ${dates}">
-                        <td th:text="${date}"></td>
-                        <br>
-                    </tr>
-                    <p th:text="_" th:default="_"></p>
+                <dd class="col-sm-9">
+                    <div th:switch="${dates.isEmpty()}">
+                        <p th:case="true">0</p>
+                        <p th:case="false">
+                            <tr th:each="date : ${dates}">
+                                <td th:text="${date}"></td>
+                                <br>
+                            </tr>
+                        </p>
+                    </div>
                 </dd>
 
             </dl>
@@ -78,8 +101,6 @@
 
 
 </div>
-
-
 </body>
 </html>
 

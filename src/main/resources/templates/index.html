@@ -53,7 +53,7 @@
             <th>Small Adress</th>
             <th>Day Create</th>
             <th>Day Destroy</th>
-            <th>Active/Disable</th>
+
             <th>Active</th>
             <th>Update</th>
             <th>Statistic</th>
@@ -70,15 +70,15 @@
             <td>
 
                 <form class="form-inline"
-                      th:action="@{'/' + ${miniURL.id} + '/active'}" method="post" th:align="center">
+                      th:action="@{'/' + ${miniURL.id} + '/active'}" method="post" >
 
-                    <button type="submit" class="btn btn-primary mb-2" >Active/Disable</button>
+                    <button type="submit" class="btn btn-primary mb-2" th:text="${miniURL.isActive()}"></button>
                 </form>
 
 
 
             </td>
-            <td th:text="${miniURL.isActive()}"></td>
+            <!--<td th:text="${miniURL.isActive()}"></td>-->
             <td>
 
                 <a th:href="@{'/' + ${miniURL.id} + '/update'}"
